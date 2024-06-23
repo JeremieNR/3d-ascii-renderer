@@ -8,10 +8,12 @@ fn main() {
     // You could run into issues in terms of the ascii ratio for the characters which is 8 by 12, but maybe you can find a way around it by making the width and height of the screen different.
     // For the cube, the edges should be hashtags # and the faces of the cube are made using dots ., it doesn't have to be like that, but it's to give you an idea that the edges are more prominent than the faces. Keeping at to 2 characters at the start can help out with compression in the array
 
-    for _i in 0..=50 {
-        for _x in 0..=115 {
-            print!("/");
-            print!("\\");
+    let _row: Vec<&str> = vec!["0"; 230]; // Creates a vector with 230 strings of zero.
+    let screen: Vec<Vec<&str>> = vec![_row; 50];  // Creates a vector with 50 instances of the _row vector.
+
+    for _row in screen {
+        for char in _row {
+            print!("{}", char);
         }
         print!("\n");
     }
