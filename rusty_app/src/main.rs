@@ -1,41 +1,16 @@
 fn main() {
-    let (mut a,mut b): (f64, f64)= (0., 0.);
-    let s:[char; 12] = ['.', ',', '-', '~', ':', ';', '=', '!', '*', '#', '$', '@']; 
-    print!("\x1B[2J");
-    loop {
-        let (mut b2, mut z)=([' '; 1760], [0.; 1760]);
-        for j in (0..628).step_by(7) {
-            for i in (0..628).step_by(2) {
-                let sini = ((i as f64)/100.).sin();
-                let cosi = ((i as f64)/100.0).cos();
-                let sinj = ((j as f64)/100.).sin();
-                let cosj = ((j as f64)/100.).cos();
-                let cosj2 = cosj+2.;
-                let sina = a.sin(); 
-                let cosa = a.cos();
-                let sinb = b.sin();
-                let cosb = b.cos();
-                let m = 1./(sini*cosj2*sina+sinj*cosa+5.); 
-                let t = sini*cosj2*cosa-sinj*sina;
-                let x = 40.+24.*m*(cosi*cosj2*cosb-t*sinb);
-                let y = 10.+12.*m*(cosi*cosj2*sinb+t*cosb);
-                let o = x as usize+80*y as usize;
-                let n = 8.*((sinj*sina-sini*cosj*cosa)*cosb-sini*cosj*sina-sinj*cosa-cosi*cosj*sinb);
-                if (22. > y) && (y > 0.) && (x > 0.) && (80. > x) && (m > z[o]) {
-                    z[o] = m;
-                    b2[o] = s[n as usize];
-                }
-            }
+    // 30 times a second (30 fps) you will print (literally print to console) 230 by 50 cells filled with ascii characters.
+    // when modeling the width and height of the ascii screen, use the approximate human eye aspect ratio of 5:4 (where 5 represents width, and 4 represents height)
+    // 3 things you need to figure out:
+    //      - How to model the cube spinning (use linear algebra to know what to show)
+    //      - How to print out the math (it's basically a leetcode problem, generate an array for each row and fill the rest of the cells with space characters)
+    //      - Which Ascii character to use for each pixel (there should already be the answer to this online)
+    // You could run into issues in terms of the ascii ratio for the characters which is 8 by 12, but maybe you can find a way around it by making the width and height of the screen different.
+
+    for _i in 0..=50 {
+        for _x in 0..=230 {
+            print!("/");
         }
-        print!("\x1b[H");
-        for k in 0..1760 {
-            if k%80 != 0 {
-                print!("{}", b2[k]);
-            } else {
-                println!("");
-            }
-        }
-        a += 0.06;
-        b += 0.07;
+        print!("\n");
     }
 }
